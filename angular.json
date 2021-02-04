@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "admin-ng-arab"
+  "defaultProject": "admin-ng-arab",
+  "cli": {
+    "analytics": "4e50d748-977b-4a1d-83bf-ac988427c08e"
+  }
 }
