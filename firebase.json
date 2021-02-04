@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "admin-ng-arab/dist/admin-ng-arab",
+    "public": "dist/admin-ng-arab",
     "ignore": [
       "firebase.json",
       "**/.*",
