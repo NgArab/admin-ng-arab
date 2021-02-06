@@ -11,34 +11,16 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials): void {
-    const params = new HttpParams({
-      fromObject: { email: credentials.email, password: credentials.password },
+    ajax({
+      url: `${environment.baseURL}/auth/login`,
+      method: 'POST',
+      body: {
+        email: credentials.email,
+        password: credentials.password,
+      },
+      headers: {},
+    }).subscribe((response) => {
+      console.log('response ', response);
     });
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        // 'Content-Type': 'application/json',
-      }),
-    };
-    this.http
-      .post(
-        `${environment.baseURL}/auth/login`,
-        { email: credentials.email, password: credentials.password },
-        httpOptions
-      )
-      .subscribe((response) => {
-        console.log('response ', response);
-      });
-    // ajax({
-    //   url: `${environment.baseURL}/auth/login`,
-    //   method: 'POST',
-    //   body: {
-    //     email: credentials.email,
-    //     password: credentials.password,
-    //   },
-    //   headers: {},
-    // }).subscribe((response) => {
-    //   console.log('response ', response);
-    // });
   }
 }
