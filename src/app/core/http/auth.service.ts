@@ -1,44 +1,28 @@
-import { ajax } from 'rxjs/ajax';
+import { ajax, AjaxResponse } from 'rxjs/ajax';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials): void {
-    const params = new HttpParams({
-      fromObject: { email: credentials.email, password: credentials.password },
+    ajax({
+      url: `${environment.baseURL}/auth/login`,
+      method: 'POST',
+      body: {
+        email: credentials.email,
+        password: credentials.password,
+      },
+      headers: {},
+    }).subscribe((res: AjaxResponse) => {
+      localStorage.setItem('admin_token', res.response.access_token);
+      this.router.navigate(['/questions']);
     });
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        // 'Content-Type': 'application/json',
-      }),
-    };
-    this.http
-      .post(
-        `${environment.baseURL}/auth/login`,
-        { email: credentials.email, password: credentials.password },
-        httpOptions
-      )
-      .subscribe((response) => {
-        console.log('response ', response);
-      });
-    // ajax({
-    //   url: `${environment.baseURL}/auth/login`,
-    //   method: 'POST',
-    //   body: {
-    //     email: credentials.email,
-    //     password: credentials.password,
-    //   },
-    //   headers: {},
-    // }).subscribe((response) => {
-    //   console.log('response ', response);
-    // });
   }
 }
