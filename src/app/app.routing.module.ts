@@ -1,12 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginGuard } from './modules/auth/guards/login.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'search' },
   {
-    path: 'search',
-    loadChildren: () =>
-      import('./modules/search/search.module').then((m) => m.SearchModule),
+    path: '',
+    canActivate: [LoginGuard],
+    children: [
+      {
+        path: 'questions',
+        loadChildren: () =>
+          import('./modules/questions/questions.module').then(
+            (m) => m.QuestionsModule
+          ),
+      },
+    ],
+  },
+  {
+    path: 'login',
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/auth/auth.module').then((m) => m.AuthModule),
+      },
+    ],
   },
 ];
 @NgModule({

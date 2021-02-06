@@ -7,7 +7,11 @@
       "@modules/*": ["app/modules/*"],
       "@env/*": ["environments/*"],
       "@core/*": ["app/core/*"],
-      "@shared/*": ["app/shared/*"]
+      "@shared/*": [
+        "app/shared/components/*",
+        "app/shared/animations/*",
+        "app/shared/services/*"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

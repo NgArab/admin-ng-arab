@@ -13,8 +13,8 @@
 :root {
   --gray: #f8f8fa;
   --gray-dark: #8e8e8e;
-  --blue: #1da1f2;
-  --black: #333;
+  --red: #c3002f;
+  --black: #303030;
 }
 
 * {
@@ -26,17 +26,16 @@
   }
 }
 body {
-  padding: 30px;
+  background: var(--black);
 }
-header {
-  font-weight: 500;
-}
-a {
-  text-decoration: none;
-  color: var(--black);
+img {
+  max-width: 100%;
 }
 .text-center {
   text-align: center;
+}
+input {
+  -webkit-background-clip: text !important;
 }
 
 // ---------------------        2 - Search Table          ---------------------
@@ -85,4 +84,13 @@ a {
       }
     }
   }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
