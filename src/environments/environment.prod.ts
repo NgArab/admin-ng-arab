@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURL: 'http://api.ng-arab.tech/api/v1',
+  baseURL: 'https://ngarab.000webhostapp.com/api/v1',
 };
