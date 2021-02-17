@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginGuard } from './modules/auth/guards/login.guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'questions', pathMatch: 'full' },
   {
     path: '',
     canActivate: [LoginGuard],
