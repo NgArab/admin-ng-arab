@@ -6,7 +6,7 @@
     "paths": {
       "@modules/*": ["app/modules/*"],
       "@env/*": ["environments/*"],
-      "@core/*": ["app/core/*"],
+      "@core/*": ["app/core/interceptors/*", "app/core/services/*"],
       "@shared/*": [
         "app/shared/components/*",
         "app/shared/animations/*",

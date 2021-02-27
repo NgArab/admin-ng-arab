@@ -1,0 +1,56 @@
+<div class="form">
+  <form [formGroup]="addQuestionForm" (ngSubmit)="onSubmit()">
+    <div class="form-container">
+      <h2 class="title">Questions Form</h2>
+      <!-- Queation -->
+      <mat-form-field appearance="fill">
+        <mat-label>Queation</mat-label>
+        <input matInput formControlName="question" />
+      </mat-form-field>
+      <!-- Level -->
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select formControlName="level">
+          <mat-option value="junior">Junior Level</mat-option>
+          <mat-option value="med">Med Level</mat-option>
+          <mat-option value="senior">Senior Level</mat-option>
+          <mat-option value="expert">Expert Level</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Resource Link -->
+      <mat-form-field appearance="fill">
+        <mat-label>Resource Link</mat-label>
+        <input matInput formControlName="resource_link" />
+      </mat-form-field>
+      <!-- Hint -->
+      <mat-form-field appearance="fill">
+        <mat-label>Hint</mat-label>
+        <input matInput formControlName="hint" />
+      </mat-form-field>
+      <!-- Answers -->
+      <ng-container formArrayName="answers">
+        <ng-container
+          *ngFor="let answer of getAnswers().controls; let answerIndex = index"
+        >
+          <ng-container [formGroupName]="answerIndex">
+            <mat-form-field appearance="fill">
+              <mat-label>{{
+                answerIndex === 0
+                  ? "Correct Answer"
+                  : "Wrong Answer " + answerIndex
+              }}</mat-label>
+              <input matInput formControlName="answer" />
+            </mat-form-field>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="addQuestionForm.invalid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,38 @@
+<div class="">
+  <div class="teble-responsive">
+    <table>
+      <thead>
+        <th>Id</th>
+        <th>Category</th>
+        <th>Level</th>
+        <th>Question</th>
+        <th>Correct Answer</th>
+        <th>Wrong Answer 1</th>
+        <th>Wrong Answer 2</th>
+        <th>Wrong Answer 3</th>
+        <th>Resource</th>
+        <th>Hint</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let question of questions; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ question.category }}</td>
+          <td>{{ question.level }}</td>
+          <td>{{ question.question }}</td>
+          <td class="long" *ngFor="let a of getAnswer(question.answers, true)">
+            {{ a.answer }}
+          </td>
+          <td class="long" *ngFor="let a of getAnswer(question.answers)">
+            {{ a.answer }}
+          </td>
+          <td>
+            <button mat-raised-button class="active">
+              <a target="_blank" [href]="question.resource">Resource</a>
+            </button>
+          </td>
+          <td>{{ question.hint }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

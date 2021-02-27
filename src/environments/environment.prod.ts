@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURL: 'https://ngarab.000webhostapp.com/api/v1',
+  baseURL: 'https://ng-arab.herokuapp.com/api/v1',
 };

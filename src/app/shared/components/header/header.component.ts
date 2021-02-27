@@ -1,13 +1,13 @@
-import { ProgressBarService } from './../../services/progress-bar.service';
 import { Component, OnInit } from '@angular/core';
+import { LoadingService } from '@shared/loading.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(public progressBarService: ProgressBarService) {}
+  constructor(public loadingService: LoadingService) {}
 
   ngOnInit(): void {}
 }

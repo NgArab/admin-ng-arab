@@ -1,0 +1,72 @@
+app-root {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+router-outlet {
+  display: none;
+}
+.full-height {
+  height: 100%;
+}
+.mat-form-field-wrapper {
+  margin-bottom: -15px;
+}
+
+// ---------------------        2 - Form Page          ---------------------
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  .form-container {
+    background: #ffffff;
+    display: grid;
+    padding: 30px;
+    border-radius: 5px;
+    width: 500px;
+    font-size: 18px;
+    .title {
+      color: var(--red);
+    }
+    .mat-raised-button:not(:disabled) {
+      background: var(--red);
+    }
+  }
+}
+
+// ---------------------          3 - Table            ---------------------
+.teble-responsive {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 10px;
+  max-width: calc(100vw - 50px);
+  margin: 0 25px;
+  table {
+    text-transform: capitalize;
+    text-align: center;
+    border-spacing: 0;
+    thead {
+      background: var(--black-light);
+      color: #fff;
+      th {
+        white-space: nowrap;
+        padding: 20px;
+      }
+    }
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background: var(--gray-med);
+        }
+        td {
+          padding: 20px 15px;
+          &.long {
+            min-width: 300px;
+          }
+        }
+      }
+    }
+  }
+}

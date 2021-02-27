@@ -1,8 +1,7 @@
-<header class="col-12">
-  <div class="container text-center">
-    <img src="assets/img/logo.png" alt="" />
-  </div>
+<header>
+  <img src="assets/img/logo.png" alt="" />
+
   <app-progress-bar
-    [style.opacity]="progressBarService.isLoading ? 1 : 0"
+    [style.opacity]="loadingService.isLoading ? 1 : 0"
   ></app-progress-bar>
 </header>

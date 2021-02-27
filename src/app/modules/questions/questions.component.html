@@ -1,1 +1,21 @@
-<p>questions works!</p>
+<div class="full-height">
+  <div class="text-center controls">
+    <button
+      mat-raised-button
+      color="basic"
+      routerLink="add"
+      routerLinkActive="active"
+    >
+      Add
+    </button>
+    <button
+      mat-raised-button
+      color="basic"
+      routerLink="list"
+      routerLinkActive="active"
+    >
+      List
+    </button>
+  </div>
+  <router-outlet></router-outlet>
+</div>
