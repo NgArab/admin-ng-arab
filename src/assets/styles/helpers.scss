@@ -47,6 +47,7 @@ router-outlet {
     text-transform: capitalize;
     text-align: center;
     border-spacing: 0;
+    width: 100%;
     thead {
       background: var(--black-light);
       color: #fff;

@@ -40,4 +40,10 @@ export class ListComponent implements OnInit {
   getAnswer(answers: Answer[], type: boolean = false): Answer[] {
     return answers.filter((a) => a.accepted === type);
   }
+
+  deleteQuestion(questionId: string): void {
+    this.apiService
+      .delete(`${environment.baseURL}/questions/${questionId}`)
+      .subscribe(() => this.getQuestions());
+  }
 }

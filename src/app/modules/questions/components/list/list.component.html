@@ -12,6 +12,7 @@
         <th>Wrong Answer 3</th>
         <th>Resource</th>
         <th>Hint</th>
+        <th>Delete</th>
       </thead>
       <tbody>
         <tr *ngFor="let question of questions; let i = index">
@@ -26,11 +27,20 @@
             {{ a.answer }}
           </td>
           <td>
-            <button mat-raised-button class="active">
+            <button mat-raised-button color="primary">
               <a target="_blank" [href]="question.resource">Resource</a>
             </button>
           </td>
           <td>{{ question.hint }}</td>
+          <td>
+            <button
+              mat-raised-button
+              class="active"
+              (click)="deleteQuestion(question.id)"
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
