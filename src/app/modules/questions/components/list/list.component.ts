@@ -42,8 +42,8 @@ export class ListComponent implements OnInit {
   }
 
   deleteQuestion(questionId: string): void {
-    this.apiService
-      .delete(`${environment.baseURL}/questions/${questionId}`)
-      .subscribe(() => this.getQuestions());
+    // this.apiService
+    //   .delete(`${environment.baseURL}/questions/${questionId}`)
+    //   .subscribe(() => this.getQuestions());
   }
 }
