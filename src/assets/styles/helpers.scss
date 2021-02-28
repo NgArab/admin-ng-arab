@@ -39,7 +39,6 @@ router-outlet {
 // ---------------------          3 - Table            ---------------------
 .teble-responsive {
   overflow-x: auto;
-  background: #fff;
   border-radius: 10px;
   max-width: calc(100vw - 50px);
   margin: 0 25px;
@@ -58,6 +57,7 @@ router-outlet {
     }
     tbody {
       tr {
+        background: #fff;
         &:nth-child(odd) {
           background: var(--gray-med);
         }

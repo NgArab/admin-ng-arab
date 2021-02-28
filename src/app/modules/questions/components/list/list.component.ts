@@ -2,20 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
 import { ApiService } from '@core/api.service';
 import { QuestionResponse, Question, Answer } from '../../interfaces/question';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
+  activeTableLevel = 'junior';
   questions: Question[] = [];
+  activeTableQuestions: Question[] = [];
+
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
@@ -26,6 +22,7 @@ export class ListComponent implements OnInit {
       .get(`${environment.baseURL}/questions`)
       .subscribe((res: QuestionResponse) => {
         this.questions = res.questions;
+        this.filterList(this.activeTableLevel);
         console.log(this.questions);
       });
   }
@@ -45,5 +42,10 @@ export class ListComponent implements OnInit {
     // this.apiService
     //   .delete(`${environment.baseURL}/questions/${questionId}`)
     //   .subscribe(() => this.getQuestions());
+  }
+
+  filterList(level: string): void {
+    this.activeTableLevel = level;
+    this.activeTableQuestions = this.questions.filter((q) => q.level === level);
   }
 }

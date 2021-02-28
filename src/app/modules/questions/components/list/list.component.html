@@ -1,4 +1,55 @@
 <div class="">
+  <hr />
+  <br />
+  <div class="text-center controls">
+    <button
+      mat-raised-button
+      color="basic"
+      [class.active]="activeTableLevel === 'junior'"
+      (click)="filterList('junior')"
+    >
+      Junior
+      <ng-container *ngIf="activeTableLevel === 'junior'"
+        >({{ activeTableQuestions.length }})</ng-container
+      >
+    </button>
+    <button
+      mat-raised-button
+      color="basic"
+      [class.active]="activeTableLevel === 'med'"
+      (click)="filterList('med')"
+    >
+      Med
+      <ng-container *ngIf="activeTableLevel === 'med'"
+        >({{ activeTableQuestions.length }})</ng-container
+      >
+    </button>
+    <button
+      mat-raised-button
+      color="basic"
+      [class.active]="activeTableLevel === 'senior'"
+      (click)="filterList('senior')"
+    >
+      Senior
+      <ng-container *ngIf="activeTableLevel === 'senior'"
+        >({{ activeTableQuestions.length }})</ng-container
+      >
+    </button>
+    <button
+      mat-raised-button
+      color="basic"
+      [class.active]="activeTableLevel === 'expert'"
+      (click)="filterList('expert')"
+    >
+      Expert
+      <ng-container *ngIf="activeTableLevel === 'expert'"
+        >({{ activeTableQuestions.length }})</ng-container
+      >
+    </button>
+  </div>
+  <br />
+  <hr />
+  <br />
   <div class="teble-responsive">
     <table>
       <thead>
@@ -15,7 +66,7 @@
         <th>Delete</th>
       </thead>
       <tbody>
-        <tr *ngFor="let question of questions; let i = index">
+        <tr *ngFor="let question of activeTableQuestions; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ question.category }}</td>
           <td>{{ question.level }}</td>
