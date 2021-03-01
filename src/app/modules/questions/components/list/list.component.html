@@ -16,11 +16,11 @@
     <button
       mat-raised-button
       color="basic"
-      [class.active]="activeTableLevel === 'med'"
-      (click)="filterList('med')"
+      [class.active]="activeTableLevel === 'mid-senior'"
+      (click)="filterList('mid-senior')"
     >
       Mid
-      <ng-container *ngIf="activeTableLevel === 'med'"
+      <ng-container *ngIf="activeTableLevel === 'mid-senior'"
         >({{ activeTableQuestions.length }})</ng-container
       >
     </button>
