@@ -40,6 +40,6 @@ export class AddComponent implements OnInit {
     console.log(this.addQuestionForm.value);
     this.apiService
       .post(`${environment.baseURL}/questions`, this.addQuestionForm.value)
-      .subscribe();
+      .subscribe(() => this.addQuestionForm.reset());
   }
 }
