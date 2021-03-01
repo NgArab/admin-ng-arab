@@ -37,7 +37,6 @@ export class AddComponent implements OnInit {
     return this.addQuestionForm.get('answers') as FormArray;
   }
   onSubmit(): void {
-    console.log(this.addQuestionForm.value);
     this.apiService
       .post(`${environment.baseURL}/questions`, this.addQuestionForm.value)
       .subscribe(() => this.addQuestionForm.reset());
