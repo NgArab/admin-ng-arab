@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { environment } from '@env/environment';
 import { ApiService } from '@core/api.service';
+
+import { Question, Answer } from '@modules/questions/interfaces/question';
+
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -9,16 +15,24 @@ import { ApiService } from '@core/api.service';
 })
 export class AddComponent implements OnInit {
   addQuestionForm: FormGroup;
+  public Editor = ClassicEditor;
+  ckconfig = {
+    toolbar: [
+      'heading',
+      '|',
+      'bold',
+      'italic',
+      'link',
+      'bulletedList',
+      'numberedList',
+      'blockQuote',
+    ],
+  };
 
   constructor(private apiService: ApiService, private fb: FormBuilder) {
-    this.addQuestionForm = this.fb.group({
-      question: ['', Validators.required],
-      level: ['', Validators.required],
-      resource_link: ['', Validators.required],
-      hint: ['', Validators.required],
-      question_category_id: 'bf1da3d4-ec6a-4831-8a42-8aad1da497ef',
-      status: 'active',
-      answers: this.fb.array([]),
+    this.initAddQuestionForm();
+    this.addQuestionForm.valueChanges.subscribe((res) => {
+      console.log(res);
     });
   }
 
@@ -33,9 +47,21 @@ export class AddComponent implements OnInit {
     }
   }
 
+  initAddQuestionForm(): void {
+    this.addQuestionForm = this.fb.group({
+      question: ['', Validators.required],
+      level: ['', Validators.required],
+      resource_link: ['', Validators.required],
+      hint: ['', Validators.required],
+      question_category_id: 'bf1da3d4-ec6a-4831-8a42-8aad1da497ef',
+      status: 'active',
+      answers: this.fb.array([]),
+    });
+  }
   getAnswers(): FormArray {
     return this.addQuestionForm.get('answers') as FormArray;
   }
+
   onSubmit(): void {
     this.apiService
       .post(`${environment.baseURL}/questions`, this.addQuestionForm.value)

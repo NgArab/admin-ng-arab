@@ -7,19 +7,23 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
   imports: [CommonModule],
   exports: [
+    ReactiveFormsModule,
+    FormsModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule,
     MatSelectModule,
     MatTableModule,
+    CKEditorModule,
   ],
 })
 export class UiModule {}

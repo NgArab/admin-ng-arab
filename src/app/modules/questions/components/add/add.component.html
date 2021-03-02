@@ -3,10 +3,18 @@
     <div class="form-container">
       <h2 class="title">Questions Form</h2>
       <!-- Queation -->
-      <mat-form-field appearance="fill">
+      <div class="ck-wrapper">
         <mat-label>Queation</mat-label>
-        <input matInput formControlName="question" />
-      </mat-form-field>
+        <ckeditor
+          [config]="ckconfig"
+          formControlName="question"
+          [editor]="Editor"
+        ></ckeditor>
+        <code
+          *ngIf="addQuestionForm.get('question').value"
+          [innerHtml]="addQuestionForm.get('question').value"
+        ></code>
+      </div>
       <!-- Level -->
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
@@ -23,25 +31,39 @@
         <input matInput formControlName="resource_link" />
       </mat-form-field>
       <!-- Hint -->
-      <mat-form-field appearance="fill">
+      <div class="ck-wrapper">
         <mat-label>Hint</mat-label>
-        <input matInput formControlName="hint" />
-      </mat-form-field>
+        <ckeditor
+          [config]="ckconfig"
+          formControlName="hint"
+          [editor]="Editor"
+        ></ckeditor>
+        <code
+          *ngIf="addQuestionForm.get('hint').value"
+          [innerHtml]="addQuestionForm.get('hint').value"
+        ></code>
+      </div>
       <!-- Answers -->
       <ng-container formArrayName="answers">
         <ng-container
           *ngFor="let answer of getAnswers().controls; let answerIndex = index"
         >
-          <ng-container [formGroupName]="answerIndex">
-            <mat-form-field appearance="fill">
-              <mat-label>{{
-                answerIndex === 0
-                  ? "Correct Answer"
-                  : "Wrong Answer " + answerIndex
-              }}</mat-label>
-              <input matInput formControlName="answer" />
-            </mat-form-field>
-          </ng-container>
+          <div class="ck-wrapper" [formGroupName]="answerIndex">
+            <mat-label>{{
+              answerIndex === 0
+                ? "Correct Answer"
+                : "Wrong Answer " + answerIndex
+            }}</mat-label>
+            <ckeditor
+              [config]="ckconfig"
+              formControlName="answer"
+              [editor]="Editor"
+            ></ckeditor>
+            <code
+              *ngIf="answer.value.answer"
+              [innerHtml]="answer.value.answer"
+            ></code>
+          </div>
         </ng-container>
       </ng-container>
       <button

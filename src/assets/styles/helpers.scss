@@ -19,7 +19,6 @@ router-outlet {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   .form-container {
     background: #ffffff;
     display: grid;
@@ -29,6 +28,7 @@ router-outlet {
     font-size: 18px;
     .title {
       color: var(--red);
+      text-align: center;
     }
     .mat-raised-button:not(:disabled) {
       background: var(--red);
@@ -69,5 +69,26 @@ router-outlet {
         }
       }
     }
+  }
+}
+
+// ---------------------        3 - CKEditor           ---------------------
+.ck-wrapper {
+  margin-bottom: 10px;
+  mat-label {
+    display: block;
+    background: var(--black-light);
+    padding: 10px;
+    color: #fff;
+    border-radius: 8px 8px 0 0;
+  }
+  code {
+    background: var(--black-light);
+    display: block;
+    color: #fff;
+    margin: 10px 0 0;
+    border-radius: 5px;
+    padding: 16px;
+    font-size: 16px;
   }
 }

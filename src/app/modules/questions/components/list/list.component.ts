@@ -34,8 +34,8 @@ export class ListComponent implements OnInit {
    * @param boolean [type=false]
    * @returns Answer[]
    */
-  getAnswer(answers: Answer[], type: boolean = false): Answer[] {
-    return answers.filter((a) => a.accepted === type);
+  getAnswer(answers: Answer[], type: number = 0): Answer[] {
+    return answers.filter((a) => +a.accepted === type);
   }
 
   deleteQuestion(questionId: string): void {

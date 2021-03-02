@@ -71,7 +71,7 @@
           <td>{{ question.category }}</td>
           <td>{{ question.level }}</td>
           <td>{{ question.question }}</td>
-          <td class="long" *ngFor="let a of getAnswer(question.answers, true)">
+          <td class="long" *ngFor="let a of getAnswer(question.answers, 1)">
             {{ a.answer }}
           </td>
           <td class="long" *ngFor="let a of getAnswer(question.answers)">
