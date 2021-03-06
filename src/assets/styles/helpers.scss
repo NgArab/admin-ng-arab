@@ -82,7 +82,7 @@ router-outlet {
     color: #fff;
     border-radius: 8px 8px 0 0;
   }
-  code {
+  > code {
     background: var(--black-light);
     display: block;
     color: #fff;

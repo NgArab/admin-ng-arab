@@ -11,20 +11,11 @@ import { LoadingInterceptor } from '@core/loading.interceptor';
 import { HeaderComponent } from '@shared/header/header.component';
 import { FooterComponent } from '@shared/footer/footer.component';
 import { ProgressBarComponent } from '@shared/progress-bar/progress-bar.component';
+import { RootStoreModule } from './root-store/root-store.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    ProgressBarComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-  ],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, ProgressBarComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule, RootStoreModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

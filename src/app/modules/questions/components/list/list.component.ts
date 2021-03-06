@@ -18,13 +18,11 @@ export class ListComponent implements OnInit {
     this.getQuestions();
   }
   getQuestions(): void {
-    this.apiService
-      .get(`${environment.baseURL}/questions`)
-      .subscribe((res: QuestionResponse) => {
-        this.questions = res.questions;
-        this.filterList(this.activeTableLevel);
-        console.log(this.questions);
-      });
+    this.apiService.get(`${environment.baseURL}/questions`).subscribe((res: QuestionResponse) => {
+      this.questions = res.questions;
+      this.filterList(this.activeTableLevel);
+      console.log(this.questions);
+    });
   }
 
   /**
@@ -39,9 +37,7 @@ export class ListComponent implements OnInit {
   }
 
   deleteQuestion(questionId: string): void {
-    // this.apiService
-    //   .delete(`${environment.baseURL}/questions/${questionId}`)
-    //   .subscribe(() => this.getQuestions());
+    //this.apiService.delete(`${environment.baseURL}/questions/${questionId}`).subscribe(() => this.getQuestions());
   }
 
   filterList(level: string): void {
