@@ -6,8 +6,7 @@ import { ApiService } from '@core/api.service';
 
 import { Question, Answer } from '@modules/questions/interfaces/question';
 
-// import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
-// import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
+
 import * as customEditor from '@shared/ckeditor.js';
 
 @Component({
@@ -20,7 +19,6 @@ export class AddComponent implements OnInit {
   public Editor = customEditor;
   ckconfig = {
     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'codeBlock'],
-    // plugins: [CodeBlock],
   };
 
   constructor(private apiService: ApiService, private fb: FormBuilder) {
@@ -59,7 +57,7 @@ export class AddComponent implements OnInit {
   onSubmit(): void {
     this.apiService.post(`${environment.baseURL}/questions`, this.addQuestionForm.value).subscribe(() => {
       this.addQuestionForm.reset(),
-        this.addQuestionForm.patchValue({ question_category_id: 'bf1da3d4-ec6a-4831-8a42-8aad1da497ef' });
+        this.addQuestionForm.patchValue({ question_category_id: 'bf1da3d4-ec6a-4831-8a42-8aad1da497ef',status: 'active' });
     });
   }
 }
