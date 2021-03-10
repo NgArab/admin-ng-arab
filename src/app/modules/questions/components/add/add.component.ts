@@ -6,7 +6,6 @@ import { ApiService } from '@core/api.service';
 
 import { Question, Answer } from '@modules/questions/interfaces/question';
 
-
 import * as customEditor from '@shared/ckeditor.js';
 
 @Component({
@@ -28,16 +27,7 @@ export class AddComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    for (const [i, _] of Array(4).entries()) {
-      this.getAnswers().push(
-        this.fb.group({
-          answer: ['', Validators.required],
-          accepted: +!i,
-        })
-      );
-    }
-  }
+  ngOnInit(): void {}
 
   initAddQuestionForm(): void {
     this.addQuestionForm = this.fb.group({
@@ -49,6 +39,14 @@ export class AddComponent implements OnInit {
       status: 'active',
       answers: this.fb.array([]),
     });
+    for (const [i, _] of Array(4).entries()) {
+      this.getAnswers().push(
+        this.fb.group({
+          answer: ['', Validators.required],
+          accepted: +!i,
+        })
+      );
+    }
   }
   getAnswers(): FormArray {
     return this.addQuestionForm.get('answers') as FormArray;
@@ -56,8 +54,7 @@ export class AddComponent implements OnInit {
 
   onSubmit(): void {
     this.apiService.post(`${environment.baseURL}/questions`, this.addQuestionForm.value).subscribe(() => {
-      this.addQuestionForm.reset(),
-        this.addQuestionForm.patchValue({ question_category_id: 'bf1da3d4-ec6a-4831-8a42-8aad1da497ef',status: 'active' });
+      this.addQuestionForm.reset(), this.initAddQuestionForm();
     });
   }
 }
