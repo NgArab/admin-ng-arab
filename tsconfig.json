@@ -7,7 +7,8 @@
       "@modules/*": ["app/modules/*"],
       "@env/*": ["environments/*"],
       "@core/*": ["app/core/interceptors/*", "app/core/services/*"],
-      "@shared/*": ["app/shared/*", "app/shared/components/*", "app/shared/animations/*", "app/shared/services/*"]
+      "@shared/*": ["app/shared/*", "app/shared/components/*", "app/shared/animations/*", "app/shared/services/*"],
+      "@store/*": ["app/store/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

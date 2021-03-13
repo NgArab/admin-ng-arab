@@ -17,7 +17,7 @@ export class AddComponent implements OnInit {
   addQuestionForm: FormGroup;
   public Editor = customEditor;
   ckconfig = {
-    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'codeBlock'],
+    toolbar: ['heading', '|', 'bold', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'codeBlock'],
   };
 
   constructor(private apiService: ApiService, private fb: FormBuilder) {

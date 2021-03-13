@@ -11,11 +11,33 @@ import { LoadingInterceptor } from '@core/loading.interceptor';
 import { HeaderComponent } from '@shared/header/header.component';
 import { FooterComponent } from '@shared/footer/footer.component';
 import { ProgressBarComponent } from '@shared/progress-bar/progress-bar.component';
-import { RootStoreModule } from './root-store/root-store.module';
+
+import { UiModule } from './modules/ui/ui.module';
+
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '@env/environment';
+import { reducers, metaReducers } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { LoginEffects } from './store/login/login.effects';
+import { AppEffects } from './store/app.effects';
+
+import * as loginFeature from './store/login/login.reducer';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent, ProgressBarComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule, RootStoreModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    UiModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forFeature(loginFeature.loginFeatureKey, loginFeature.loginReducer),
+    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true }) : [],
+    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forFeature([LoginEffects]),
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

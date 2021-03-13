@@ -1,7 +1,10 @@
 <header>
-  <img src="assets/img/logo.png" alt="" />
-
-  <app-progress-bar
-    [style.opacity]="loadingService.isLoading ? 1 : 0"
-  ></app-progress-bar>
+  <div>
+    <img src="assets/img/logo.png" alt="" />
+  </div>
+  <div *ngIf="loadingService.isLoggedIn">
+    <br />
+    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  </div>
+  <app-progress-bar [style.opacity]="loadingService.isLoading ? 1 : 0"></app-progress-bar>
 </header>

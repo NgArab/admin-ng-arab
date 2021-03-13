@@ -1,24 +1,15 @@
 <div class="form full-height">
-  <form [formGroup]="loginForm" (submit)="onSubmit()">
+  <form class="text-center" [formGroup]="loginForm" (submit)="onSubmit()">
     <img src="assets/img/logo.png" alt="" />
     <div class="form-container">
       <mat-form-field appearance="fill">
         <mat-label>Enter Your Email</mat-label>
-        <input
-          formControlName="email"
-          matInput
-          placeholder="pat@example.com"
-          required
-        />
+        <input formControlName="email" matInput placeholder="pat@example.com" required />
         <!-- <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error> -->
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Enter Your Password</mat-label>
-        <input
-          matInput
-          [type]="hide ? 'password' : 'text'"
-          formControlName="password"
-        />
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
         <button
           mat-icon-button
           matSuffix
@@ -26,7 +17,7 @@
           [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide"
         >
-          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
       </mat-form-field>
       <button mat-raised-button color="primary">Login</button>
