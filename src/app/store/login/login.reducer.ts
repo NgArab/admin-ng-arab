@@ -6,7 +6,7 @@ import { Admin } from '@shared/models/admin';
 
 export const initialState: Admin = { email: '', password: '' };
 
-export const loginReducer = createReducer(
+export const reducer = createReducer(
   initialState,
 
   on(LoginActions.tryLogin, (state) => state),

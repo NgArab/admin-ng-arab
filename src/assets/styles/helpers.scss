@@ -1,4 +1,4 @@
-app-root {
+.app-container {
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
@@ -12,7 +12,10 @@ router-outlet {
 .mat-form-field-wrapper {
   margin-bottom: -15px;
 }
-
+.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
 // ---------------------        2 - Form Page          ---------------------
 
 .form {

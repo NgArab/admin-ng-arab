@@ -32,3 +32,12 @@ a {
 .mat-typography p {
   margin: 0 0 0px;
 }
+
+.mat-snack-bar-container.success {
+    background: var(--ck-color-base-action);
+    color: #fff;
+}
+.mat-snack-bar-container.failed {
+    background: var(--red);
+    color: #fff;
+}

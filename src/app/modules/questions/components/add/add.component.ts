@@ -1,29 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { environment } from '@env/environment';
 import { ApiService } from '@core/api.service';
 
-import { Question, Answer } from '@modules/questions/interfaces/question';
+import { Subject } from 'rxjs';
+
+import { Question, Answer } from '@shared/models/question';
 
 import * as customEditor from '@shared/ckeditor.js';
+
+import { Store } from '@ngrx/store';
+import * as questionsFeature from '@store/questions/questions.actions';
+import { Actions, ofType } from '@ngrx/effects';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss'],
 })
-export class AddComponent implements OnInit {
+export class AddComponent implements OnInit, OnDestroy {
   addQuestionForm: FormGroup;
+  destroyed$ = new Subject<boolean>();
   public Editor = customEditor;
   ckconfig = {
     toolbar: ['heading', '|', 'bold', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'codeBlock'],
   };
 
-  constructor(private apiService: ApiService, private fb: FormBuilder) {
+  constructor(private actions$: Actions, private fb: FormBuilder, private store: Store<Question>) {
     this.initAddQuestionForm();
-    this.addQuestionForm.valueChanges.subscribe((res) => {
-      console.log(res);
+    this.actions$.pipe(ofType(questionsFeature.addQuestionSuccess), takeUntil(this.destroyed$)).subscribe({
+      next: (res) => {
+        this.addQuestionForm.reset(), this.initAddQuestionForm();
+      },
     });
   }
 
@@ -53,8 +63,10 @@ export class AddComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.apiService.post(`${environment.baseURL}/questions`, this.addQuestionForm.value).subscribe(() => {
-      this.addQuestionForm.reset(), this.initAddQuestionForm();
-    });
+    this.store.dispatch(questionsFeature.addQuestion(this.addQuestionForm.value));
+  }
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }

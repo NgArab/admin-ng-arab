@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   viewInit = false;
+  constructor() {}
   ngOnInit(): void {
     setTimeout(() => {
       this.viewInit = true;
-    }, 500);
+    }, 1000);
   }
 }
