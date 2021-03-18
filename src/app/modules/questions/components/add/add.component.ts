@@ -1,17 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { environment } from '@env/environment';
-import { ApiService } from '@core/api.service';
-
 import { Subject } from 'rxjs';
 
-import { Question, Answer } from '@shared/models/question';
+import { Question } from '@shared/models/question';
 
 import * as customEditor from '@shared/ckeditor.js';
 
 import { Store } from '@ngrx/store';
-import * as questionsFeature from '@store/questions/questions.actions';
+import * as QuestionsActions from '@store/questions/questions.actions';
 import { Actions, ofType } from '@ngrx/effects';
 import { takeUntil } from 'rxjs/operators';
 
@@ -30,7 +27,7 @@ export class AddComponent implements OnInit, OnDestroy {
 
   constructor(private actions$: Actions, private fb: FormBuilder, private store: Store<Question>) {
     this.initAddQuestionForm();
-    this.actions$.pipe(ofType(questionsFeature.addQuestionSuccess), takeUntil(this.destroyed$)).subscribe({
+    this.actions$.pipe(ofType(QuestionsActions.addQuestionSuccess), takeUntil(this.destroyed$)).subscribe({
       next: (res) => {
         this.addQuestionForm.reset(), this.initAddQuestionForm();
       },
@@ -63,7 +60,7 @@ export class AddComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.store.dispatch(questionsFeature.addQuestion(this.addQuestionForm.value));
+    this.store.dispatch(QuestionsActions.addQuestion(this.addQuestionForm.value));
   }
   ngOnDestroy(): void {
     this.destroyed$.next(true);

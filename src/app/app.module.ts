@@ -38,7 +38,7 @@ import { QuestionsEffects } from './store/questions/questions.effects';
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreModule.forFeature(loginFeature.loginFeatureKey, loginFeature.reducer),
     StoreModule.forFeature(questionsFeature.questionsFeatureKey, questionsFeature.reducer),
-    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true }) : [],
+    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true, name: 'Ng Arab Admin' }) : [],
     EffectsModule.forRoot([AppEffects]),
     EffectsModule.forFeature([LoginEffects, QuestionsEffects]),
   ],

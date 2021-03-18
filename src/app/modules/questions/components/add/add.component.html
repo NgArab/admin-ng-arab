@@ -2,9 +2,9 @@
   <form [formGroup]="addQuestionForm" (ngSubmit)="onSubmit()">
     <div class="form-container">
       <h2 class="title">Questions Form</h2>
-      <!-- Queation -->
+      <!-- Question -->
       <div class="ck-wrapper">
-        <mat-label>Queation</mat-label>
+        <mat-label>Question</mat-label>
         <ckeditor [config]="ckconfig" formControlName="question" [editor]="Editor"></ckeditor>
         <code *ngIf="addQuestionForm.get('question').value" [innerHtml]="addQuestionForm.get('question').value"></code>
       </div>

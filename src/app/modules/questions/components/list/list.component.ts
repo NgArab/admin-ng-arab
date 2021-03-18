@@ -1,29 +1,42 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { environment } from '@env/environment';
-import { ApiService } from '@core/api.service';
-import { QuestionResponse, Question, Answer } from '@shared/models/question';
+import { Subject } from 'rxjs';
+import { Actions, ofType } from '@ngrx/effects';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Question, Answer } from '@shared/models/question';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { Store } from '@ngrx/store';
+import { selectQuestionsState } from '@store/questions/questions.selectors';
+import * as QuestionsActions from '@store/questions/questions.actions';
+import { takeUntil } from 'rxjs/operators';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   activeTableLevel = 'junior';
   questions: Question[] = [];
   activeTableQuestions: Question[] = [];
+  destroyed$ = new Subject<boolean>();
 
-  constructor(private apiService: ApiService, private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private store: Store<Question>, private actions$: Actions) {
+    this.actions$
+      .pipe(ofType(QuestionsActions.deleteQuestionSuccess), takeUntil(this.destroyed$))
+      .subscribe({ next: () => this.getQuestions() });
+  }
 
   ngOnInit(): void {
     this.getQuestions();
+    const x = this.store.select(selectQuestionsState).subscribe({
+      next: (questions: Question[]) => {
+        this.questions = questions;
+        this.filterList(this.activeTableLevel);
+      },
+    });
   }
   getQuestions(): void {
-    this.apiService.get(`${environment.baseURL}/questions`).subscribe((res: QuestionResponse) => {
-      this.questions = res.questions;
-      this.filterList(this.activeTableLevel);
-      console.log(this.questions);
-    });
+    this.store.dispatch(QuestionsActions.getQuestions());
   }
 
   /**
@@ -38,9 +51,7 @@ export class ListComponent implements OnInit {
   }
 
   deleteQuestion(questionId: string): void {
-    this.apiService
-      .delete(`${environment.baseURL}/questions/${questionId}`)
-      .subscribe({ next: () => this.getQuestions() });
+    this.store.dispatch(QuestionsActions.deleteQuestion({ questionId }));
   }
 
   filterList(level: string): void {
@@ -50,7 +61,6 @@ export class ListComponent implements OnInit {
 
   // Dialog
   openDialog(questionId: string): void {
-    console.log(questionId);
     const dialogRef = this.dialog.open(AppDialogComponent, {
       width: '260px',
       data: questionId,
@@ -58,12 +68,15 @@ export class ListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe({
       next: (id: string) => {
-        console.log(`Dialog id: ${id}`);
         if (id) {
           this.deleteQuestion(id);
         }
       },
     });
+  }
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }
 
