@@ -1,5 +1,5 @@
 <div class="form">
-  <form [formGroup]="addQuestionForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="addQuestionForm">
     <div class="form-container">
       <h2 class="title">Questions Form</h2>
       <!-- Question -->
@@ -39,7 +39,14 @@
           </div>
         </ng-container>
       </ng-container>
-      <button mat-raised-button color="primary" [disabled]="addQuestionForm.invalid">Submit</button>
+      <button
+        (click)="editMode ? onEdit() : onSubmit()"
+        mat-raised-button
+        color="primary"
+        [disabled]="addQuestionForm.invalid"
+      >
+        {{ editMode ? 'Edit' : 'Submit' }}
+      </button>
     </div>
   </form>
 </div>

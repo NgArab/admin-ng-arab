@@ -53,8 +53,9 @@
         <th>Wrong Answer 1</th>
         <th>Wrong Answer 2</th>
         <th>Wrong Answer 3</th>
-        <th>Resource</th>
         <th>Hint</th>
+        <th>Resource</th>
+        <th>Edit</th>
         <th>Delete</th>
       </thead>
       <tbody>
@@ -69,12 +70,15 @@
           <td class="long" *ngFor="let a of getAnswer(question.answers)">
             {{ a.answer }}
           </td>
+          <td>{{ question.hint }}</td>
           <td>
             <button mat-raised-button color="primary">
               <a target="_blank" [href]="question.resource">Resource</a>
             </button>
           </td>
-          <td>{{ question.hint }}</td>
+          <td>
+            <button mat-raised-button color="warn" [routerLink]="'../edit/' + question.id">Edit</button>
+          </td>
           <td>
             <button mat-raised-button class="active" (click)="openDialog(question.id)">Delete</button>
           </td>

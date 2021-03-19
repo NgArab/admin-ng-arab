@@ -16,8 +16,13 @@ export const deleteQuestionSuccess = createAction('[Questions] Delete Question S
 export const deleteQuestionFailure = createAction('[Questions] Delete Question Failure');
 
 // Get Questions
-export const getQuestions = createAction('[Questions] Get Question');
+export const getQuestions = createAction('[Questions] Get Question', (questionId: string = '') => ({ questionId }));
 
 export const getQuestionsSuccess = createAction('[Questions] Get Question Success', props<{ questions: Question[] }>());
 
 export const getQuestionsFailure = createAction('[Questions] Get Question Failure');
+
+// Edit Question
+export const editQuestion = createAction('[Questions] Edit Question', props<Question>());
+
+export const editQuestionSuccess = createAction('[Questions] Edit Question Success');

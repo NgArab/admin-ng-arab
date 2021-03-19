@@ -28,7 +28,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getQuestions();
-    const x = this.store.select(selectQuestionsState).subscribe({
+    this.store.select(selectQuestionsState).subscribe({
       next: (questions: Question[]) => {
         this.questions = questions;
         this.filterList(this.activeTableLevel);

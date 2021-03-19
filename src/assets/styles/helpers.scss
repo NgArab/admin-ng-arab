@@ -13,9 +13,9 @@ router-outlet {
   margin-bottom: -15px;
 }
 .hide {
-    opacity: 0;
-    visibility: hidden;
-  }
+  opacity: 0;
+  visibility: hidden;
+}
 // ---------------------        2 - Form Page          ---------------------
 
 .form {
@@ -78,6 +78,7 @@ router-outlet {
 // ---------------------        3 - CKEditor           ---------------------
 .ck-wrapper {
   margin-bottom: 10px;
+  max-width: 440px;
   mat-label {
     display: block;
     background: var(--black-light);

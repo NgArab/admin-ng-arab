@@ -10,6 +10,7 @@ export interface Question {
   status: string;
   resource: string;
   hint: string;
+  question_category_id?: string;
   answers: Answer[];
 }
 

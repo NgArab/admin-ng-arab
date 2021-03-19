@@ -11,6 +11,8 @@ import { Store } from '@ngrx/store';
 import * as QuestionsActions from '@store/questions/questions.actions';
 import { Actions, ofType } from '@ngrx/effects';
 import { takeUntil } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { selectQuestionsState } from '@store/questions/questions.selectors';
 
 @Component({
   selector: 'app-add',
@@ -25,16 +27,38 @@ export class AddComponent implements OnInit, OnDestroy {
     toolbar: ['heading', '|', 'bold', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'codeBlock'],
   };
 
-  constructor(private actions$: Actions, private fb: FormBuilder, private store: Store<Question>) {
+  // edit
+  editMode = false;
+  questionToEdit: Question;
+
+  constructor(
+    private actions$: Actions,
+    private fb: FormBuilder,
+    private store: Store<Question>,
+    private activatedRoute: ActivatedRoute
+  ) {
     this.initAddQuestionForm();
+  }
+
+  ngOnInit(): void {
     this.actions$.pipe(ofType(QuestionsActions.addQuestionSuccess), takeUntil(this.destroyed$)).subscribe({
       next: (res) => {
         this.addQuestionForm.reset(), this.initAddQuestionForm();
       },
     });
-  }
 
-  ngOnInit(): void {}
+    this.store.select(selectQuestionsState).subscribe({
+      next: (questionToEdit: Question[]) => {
+        this.questionToEdit = questionToEdit[0];
+        this.addQuestionForm.patchValue(questionToEdit[0]);
+      },
+    });
+    const id = this.activatedRoute.snapshot.params['id'];
+    if (id) {
+      this.editMode = true;
+      this.getQuestion(id);
+    }
+  }
 
   initAddQuestionForm(): void {
     this.addQuestionForm = this.fb.group({
@@ -58,9 +82,21 @@ export class AddComponent implements OnInit, OnDestroy {
   getAnswers(): FormArray {
     return this.addQuestionForm.get('answers') as FormArray;
   }
-
+  getQuestion(questionId: string): void {
+    this.store.dispatch(QuestionsActions.getQuestions(questionId));
+  }
   onSubmit(): void {
     this.store.dispatch(QuestionsActions.addQuestion(this.addQuestionForm.value));
+  }
+
+  onEdit(): void {
+    this.store.dispatch(
+      QuestionsActions.editQuestion({
+        ...this.addQuestionForm.value,
+        question_category_id: 'bf1da3d4-ec6a-4831-8a42-8aad1da497ef',
+        id: this.questionToEdit.id,
+      })
+    );
   }
   ngOnDestroy(): void {
     this.destroyed$.next(true);

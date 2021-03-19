@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError, map, concatMap, tap, mergeMap } from 'rxjs/operators';
+import { of, EMPTY } from 'rxjs';
 import { Question } from '@shared/models/question';
 
 import { environment } from '@env/environment';
@@ -51,20 +51,44 @@ export class QuestionsEffects {
   getQuestions$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(QuestionsActions.getQuestions),
-      concatMap(() =>
-        this.apiService.get(`${environment.baseURL}/questions`).pipe(
-          map((payload: { questions: Question[]; status: string }) => {
-            this.alertService.alert.next({ msg: 'Get Questions Successfuly', type: 'success' });
-            return QuestionsActions.getQuestionsSuccess({ questions: payload.questions });
-          }),
-          catchError(() => {
-            this.alertService.alert.next({ msg: 'There is something wrong', type: 'failed' });
-            return of(QuestionsActions.getQuestionsFailure());
-          })
-        )
-      )
+      concatMap((params) => {
+        console.log('id ', params.questionId);
+        return this.apiService
+          .get(`${environment.baseURL}/questions${params.questionId ? `/${params.questionId}` : ''}`)
+          .pipe(
+            map((payload: { questions: Question[]; status: string } | { question: Question; status: string }) => {
+              console.log('payload', payload);
+              this.alertService.alert.next({ msg: 'Get Data Successfuly', type: 'success' });
+              return QuestionsActions.getQuestionsSuccess({
+                questions: params.questionId ? [payload['question']] : payload['questions'],
+              });
+            }),
+            catchError(() => {
+              this.alertService.alert.next({ msg: 'There is something wrong', type: 'failed' });
+              return of(QuestionsActions.getQuestionsFailure());
+            })
+          );
+      })
     );
   });
 
+  editQuestions$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(QuestionsActions.editQuestion),
+      mergeMap((question) => {
+        console.log('id ', question);
+        return this.apiService.put(`${environment.baseURL}/questions/${question.id}`, question).pipe(
+          map(() => {
+            this.alertService.alert.next({ msg: 'Edit Question Successfuly', type: 'success' });
+            return QuestionsActions.editQuestionSuccess();
+          }),
+          catchError(() => {
+            this.alertService.alert.next({ msg: 'There is something wrong', type: 'failed' });
+            return EMPTY;
+          })
+        );
+      })
+    );
+  });
   constructor(private actions$: Actions, private apiService: ApiService, private alertService: AlertService) {}
 }

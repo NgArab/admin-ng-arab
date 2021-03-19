@@ -11,6 +11,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'add', pathMatch: 'full' },
       { path: 'add', component: AddComponent },
+      { path: 'edit/:id', component: AddComponent },
       { path: 'list', component: ListComponent },
     ],
   },
