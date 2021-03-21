@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -12,14 +13,18 @@ import * as LoginActions from '@store/login/login.actions';
 export class LoginComponent implements OnInit {
   hide = true;
   loginForm: FormGroup;
-  constructor(private store: Store<Admin>) {
+  constructor(private store: Store<Admin>, private router: Router) {
     this.loginForm = new FormGroup({
       email: new FormControl(),
       password: new FormControl(),
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.getItem('admin_token')) {
+      this.router.navigateByUrl('/');
+    }
+  }
   onSubmit(): void {
     this.store.dispatch(LoginActions.tryLogin(this.loginForm.value));
   }

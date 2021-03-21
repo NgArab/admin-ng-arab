@@ -47,16 +47,16 @@ export class AddComponent implements OnInit, OnDestroy {
       },
     });
 
-    this.store.select(selectQuestionsState).subscribe({
-      next: (questionToEdit: Question[]) => {
-        this.questionToEdit = questionToEdit[0];
-        this.addQuestionForm.patchValue(questionToEdit[0]);
-      },
-    });
     const id = this.activatedRoute.snapshot.params['id'];
     if (id) {
       this.editMode = true;
       this.getQuestion(id);
+      this.store.select(selectQuestionsState).subscribe({
+        next: (questionToEdit: Question[]) => {
+          this.questionToEdit = questionToEdit[0];
+          this.addQuestionForm.patchValue(questionToEdit[0]);
+        },
+      });
     }
   }
 
