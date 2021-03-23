@@ -77,7 +77,9 @@
             </button>
           </td>
           <td>
-            <button mat-raised-button color="warn" [routerLink]="'../edit/' + question.id">Edit</button>
+            <button mat-raised-button color="warn">
+              <a [routerLink]="'../edit/' + question.id">Edit</a>
+            </button>
           </td>
           <td>
             <button mat-raised-button class="active" (click)="openDialog(question.id)">Delete</button>
