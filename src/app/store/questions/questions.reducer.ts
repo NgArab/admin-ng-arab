@@ -8,8 +8,5 @@ export const initialState: Question[] = [];
 
 export const reducer = createReducer(
   initialState,
-  on(QuestionsActions.getQuestionsSuccess, (state, payload) => {
-    console.log('payload in questions reducer', state, payload);
-    return [...payload.questions];
-  })
+  on(QuestionsActions.getQuestionsSuccess, (state, payload) => [...payload.questions])
 );

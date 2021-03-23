@@ -10,12 +10,6 @@ export const reducer = createReducer(
   initialState,
 
   on(LoginActions.tryLogin, (state) => state),
-  on(LoginActions.tryLoginSuccess, (state, payload) => {
-    console.log('payload in reducer', payload);
-    return state;
-  }),
-  on(LoginActions.tryLoginFailed, (state, payload) => {
-    console.log(payload.error.message);
-    return state;
-  })
+  on(LoginActions.tryLoginSuccess, (state, payload) => state),
+  on(LoginActions.tryLoginFailed, (state, payload) => state)
 );
