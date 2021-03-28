@@ -56,7 +56,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   filterList(level: string): void {
     this.activeTableLevel = level;
-    this.activeTableQuestions = this.questions.filter((q) => q.level === level);
+    this.activeTableQuestions = this.questions.filter((q) => q.level === level && q.category === 'JavaScript');
   }
 
   // Dialog
